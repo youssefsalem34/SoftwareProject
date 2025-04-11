@@ -742,7 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 0.1
   maxDamage: 100
-  chargeRate: 0.6
+  chargeRate: 0.9
   range: 36.3
   flash: {fileID: 6631100520870094798}
   ray: {fileID: 201128971107013784}
@@ -756,6 +756,7 @@ MonoBehaviour:
   playerCamera: {fileID: 5660405227653732038}
   currentDamage: 0
   isCharging: 0
+  isBugged: 0
   ammoHolder: {fileID: 6134886842902417453}
   laserAmmo: {fileID: 7239162367679513102}
 --- !u!82 &3964262346899638886
@@ -1385,7 +1386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4275628686288787812
 Transform:
   m_ObjectHideFlags: 0
@@ -3333,7 +3334,6 @@ GameObject:
   - component: {fileID: 4962591358570796273}
   - component: {fileID: 6456853858239075843}
   - component: {fileID: 8919395670748246543}
-  - component: {fileID: 383326249210270934}
   - component: {fileID: 7038462615512566311}
   m_Layer: 0
   m_Name: AegisBlaster
@@ -3341,7 +3341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5874885016633309148
 Transform:
   m_ObjectHideFlags: 0
@@ -3457,7 +3457,7 @@ MonoBehaviour:
   ammoUI: {fileID: 0}
   canShoot: 0
   isReloading: 0
-  gunSystem: {fileID: 383326249210270934}
+  gunSystem: {fileID: 0}
 --- !u!95 &8919395670748246543
 Animator:
   serializedVersion: 7
@@ -3480,22 +3480,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &383326249210270934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4018043804237228737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0fc223c2b98c5341bdac2d6717813ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  range: 100
-  flash: {fileID: 1038677946286830340}
-  fpsCam: {fileID: 5660405227653732038}
 --- !u!114 &7038462615512566311
 MonoBehaviour:
   m_ObjectHideFlags: 0

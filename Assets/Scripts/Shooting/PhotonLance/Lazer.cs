@@ -14,6 +14,7 @@ public class Lazer : MonoBehaviour
     [SerializeField] private float overHeat;
     [SerializeField] private float overHeatAdd;
     [SerializeField] private GameObject raycastPosition;
+    //[SerializeField] private GameObject laserWep;
     [SerializeField] private GameObject overheatSound;
     [SerializeField] private AudioSource overheatedSound;
 
@@ -22,6 +23,7 @@ public class Lazer : MonoBehaviour
 
     [SerializeField]private float currentDamage; // Tracks the current damage
   [SerializeField]  private bool isCharging; // Tracks if the button is held down
+  [SerializeField]  private bool isBugged; // Tracks if the button is held down
 
 
     [SerializeField] private GameObject ammoHolder;
@@ -30,6 +32,7 @@ public class Lazer : MonoBehaviour
     {
         ray.SetActive(false);
         isCharging = true;
+        
     }
     void Update()
     {
@@ -77,6 +80,11 @@ public class Lazer : MonoBehaviour
                 overHeat = 0;
                 ray.SetActive(false);
             }
+
+            //if (!isCharging)
+            //{
+            //    StartCoroutine(StopShooting());
+            //}
         }
 
 
@@ -86,6 +94,15 @@ public class Lazer : MonoBehaviour
             ray.SetActive(false);       
         }
 
+      if (Input.GetButton("Fire1") && !isCharging && !isBugged)
+        {
+            isBugged = true;
+            if (isBugged)
+            {
+                StartCoroutine(StopShooting());
+                isBugged = false;
+            }
+        }
 
     }
 
