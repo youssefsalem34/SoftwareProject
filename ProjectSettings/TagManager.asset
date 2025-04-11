@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Bullet
+  - Floor
+  - FirstObjective
+  - SecondObjective
+  - ThirdObjective
+  - progressbar1
+  - progressbar2
+  - Payload
+  - BlasterBullet
+  - Shield
+  - Enemy2
+  - resetPos
+  - obj1
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - whatIsGround
+  - Water
+  - UI
+  - Shield
+  - Payload
+  - MuseTextureLayer
+  - Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default
