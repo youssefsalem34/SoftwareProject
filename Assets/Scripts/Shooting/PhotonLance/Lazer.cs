@@ -60,6 +60,7 @@ public class Lazer : MonoBehaviour
                 overHeat += overHeatAdd * Time.deltaTime;
                 currentDamage = Mathf.Clamp(currentDamage, baseDamage, maxDamage);
                 ray.SetActive(true);
+                laserAmmo.DeducLaser(1 * Time.deltaTime);
 
                 Shoot();
                
@@ -111,7 +112,7 @@ public class Lazer : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
         {
-            laserAmmo.DeducLaser(1 * Time.deltaTime);
+            
             if (hit.transform.CompareTag("Enemy"))
             {
                 Debug.Log($"Hit {hit.transform.name} with {currentDamage} damage");
