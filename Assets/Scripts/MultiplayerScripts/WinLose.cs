@@ -29,8 +29,8 @@ public class WinLose : MonoBehaviour
             if (mainUI != null)
             {
                 // Find "Win" and "Lose" GameObjects even if they are inactive
-                winUI = mainUI.transform.GetChild(18).gameObject;
-                loseUI = mainUI.transform.GetChild(17).gameObject;
+                winUI = mainUI.transform.GetChild(19).gameObject;
+                loseUI = mainUI.transform.GetChild(18).gameObject;
             }
             //Transform uiTransform = transform.Find("MainUI");
             //if (uiTransform != null)

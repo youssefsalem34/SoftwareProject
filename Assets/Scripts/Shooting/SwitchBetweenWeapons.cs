@@ -17,6 +17,10 @@ public class SwitchBetweenWeapons : MonoBehaviour
     [SerializeField] private GameObject wep1UI;
     [SerializeField] private GameObject wep2UI;
     [SerializeField] private GameObject wep3UI;
+    [SerializeField] private GameObject wep1Glow;
+    [SerializeField] private GameObject wep2Glow;
+    [SerializeField] private GameObject wep3Glow;
+    [SerializeField] private GameObject wep4Glow;
   //  [SerializeField] private GameObject wep4UI;
 
 
@@ -96,6 +100,13 @@ public class SwitchBetweenWeapons : MonoBehaviour
 
                 weapon4UI.SetActive(false);
                 weapon4UISecond.SetActive(false);
+                wep1Glow.SetActive(true);
+                wep2Glow.SetActive(false);
+                wep3Glow.SetActive(false);
+                wep4Glow.SetActive(false);
+
+
+
             }
         }
       
@@ -116,6 +127,13 @@ public class SwitchBetweenWeapons : MonoBehaviour
 
                 weapon4UI.SetActive(false);
                 weapon4UISecond.SetActive(false);
+                wep1Glow.SetActive(false);
+                wep2Glow.SetActive(true);
+                wep3Glow.SetActive(false);
+                wep4Glow.SetActive(false);
+
+
+
             }
         }
       
@@ -136,6 +154,14 @@ public class SwitchBetweenWeapons : MonoBehaviour
 
                 weapon4UI.SetActive(false);
                 weapon4UISecond.SetActive(false);
+                wep1Glow.SetActive(false);
+                wep2Glow.SetActive(false);
+                wep3Glow.SetActive(true);
+                wep4Glow.SetActive(false);
+
+
+
+
 
             }
         }
@@ -154,6 +180,15 @@ public class SwitchBetweenWeapons : MonoBehaviour
             weapon3UISecond.SetActive(false);
             weapon4UI.SetActive(true);
             weapon4UISecond.SetActive(true);
+
+            wep1Glow.SetActive(false);
+            wep2Glow.SetActive(false);
+            wep3Glow.SetActive(false);
+            wep4Glow.SetActive(true);
+
+
+
+
 
         }
 
