@@ -8,6 +8,7 @@ public class OpenDoor : MonoBehaviour
      [SerializeField]private GameObject objec2;
      [SerializeField]private GameObject objec3;
      [SerializeField]private GameObject payload;
+     [SerializeField]private AudioSource soundEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +20,9 @@ public class OpenDoor : MonoBehaviour
     {
         if(openDoor )
         {
+            soundEffect.Play();
             openAnimation.SetBool("openDoor", true);
+            
         }
 
         if(openDoor && objec1.activeSelf)

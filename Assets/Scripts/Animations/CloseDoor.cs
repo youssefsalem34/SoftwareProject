@@ -4,6 +4,7 @@ public class CloseDoor : MonoBehaviour
 {
     public bool isClose;
     private Animator closeAnimation;
+    [SerializeField] private AudioSource soundEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,7 +16,9 @@ public class CloseDoor : MonoBehaviour
     {
         if(isClose)
         {
+            soundEffect.Play();
             closeAnimation.SetBool("CloseDoor", true);
+
         }
     }
 }
