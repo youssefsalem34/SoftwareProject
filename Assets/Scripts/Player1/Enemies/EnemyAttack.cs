@@ -41,19 +41,27 @@ public class EnemyAttack : MonoBehaviour
         {
           
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-            if (distanceToPlayer <= attackDistance)
+            if (this.gameObject.CompareTag("Enemy"))
             {
-                if (!attacking)
+                if (distanceToPlayer <= attackDistance)
                 {
-                    attacking = true;
-                    StartCoroutine(AttackPlayer());
+                    if (!attacking)
+                    {
+                        attacking = true;
+                        StartCoroutine(AttackPlayer());
+                    }
+                }
+                else
+                {
+                    attacking = false; // Reset attacking if the player moves out of range
                 }
             }
             else
             {
-                attacking = false; // Reset attacking if the player moves out of range
+                StartCoroutine(KillEnemy());
             }
+
+          
         }
     }
 
@@ -61,12 +69,18 @@ public class EnemyAttack : MonoBehaviour
     {
         while (attacking)
         {
-            if (playerHealth != null)
+            if (playerHealth != null )
             {
                 playerHealth.ReduceHealth(attackDamage);
             }
             yield return new WaitForSeconds(attackCooldown);
         }
+    }
+
+    private IEnumerator KillEnemy()
+    {
+        yield return new WaitForSeconds(8f);
+        Destroy(this.gameObject);
     }
 
 

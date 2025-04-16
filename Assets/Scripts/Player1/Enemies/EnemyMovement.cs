@@ -106,7 +106,7 @@ public class EnemyMovement : MonoBehaviour
 
     void CheckHealthStatus()
     {
-        if (enemyHealth.enemyHealth <= 0)
+        if (enemyHealth.enemyHealth <= 0 && this.gameObject.CompareTag("Enemy"))
         {
             if (enemyKilledCounter != null)
             {
@@ -114,6 +114,12 @@ public class EnemyMovement : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+        else if (enemyHealth.enemyHealth <= 0 && this.gameObject.CompareTag("EnemyDanger"))
+        {
+            AttributeManager playerHealth = playerPosition.gameObject.GetComponent<AttributeManager>();
+            playerHealth.ReduceHealth(15f);
+            Destroy(this.gameObject);
         }
     }
 
@@ -124,6 +130,7 @@ public class EnemyMovement : MonoBehaviour
             enemyHealth.ReduceEnemyHealth(20f);
             Destroy(col.gameObject); // Destroy bullet on impact
         }
+       
     }
 
     void OnDrawGizmos()

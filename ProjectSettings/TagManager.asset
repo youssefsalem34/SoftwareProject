@@ -18,6 +18,7 @@ TagManager:
   - Enemy2
   - resetPos
   - obj1
+  - EnemyDanger
   layers:
   - Default
   - TransparentFX

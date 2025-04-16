@@ -2131,6 +2131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8249842550547173094}
   - component: {fileID: 3704423650117514885}
+  - component: {fileID: 6689094242813168269}
   m_Layer: 3
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -2190,6 +2191,33 @@ MonoBehaviour:
   enemy1: {fileID: 0}
   index: 0
   enemiesPerSecond: 0.9
+--- !u!114 &6689094242813168269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7505710592061833137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec58b072eea6f14080b8d950e99ff51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawners:
+  - {fileID: 5371207929801021934}
+  - {fileID: 4194245999358691394}
+  - {fileID: 658134508132549223}
+  - {fileID: 5815268922072479181}
+  - {fileID: 4817780917929322099}
+  - {fileID: 8366129677819912403}
+  - {fileID: 3029283970156976530}
+  - {fileID: 6711145896142808285}
+  - {fileID: 5541125628495069803}
+  - {fileID: 1715980026903427701}
+  enemyManager: {fileID: 0}
+  enemy1: {fileID: 0}
+  index: 0
+  enemiesPerSecond: 2.5
 --- !u!1 &7922785603794819372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,6 +3372,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1455874297517177451}
     m_Modifications:
+    - target: {fileID: 5023518485856304722, guid: d9ecfbcb80927c04d916d06530d5876b, type: 3}
+      propertyPath: firstObj
+      value: 
+      objectReference: {fileID: 4402861178565853545}
+    - target: {fileID: 5023518485856304722, guid: d9ecfbcb80927c04d916d06530d5876b, type: 3}
+      propertyPath: spawnDangerEnemies
+      value: 
+      objectReference: {fileID: 6689094242813168269}
     - target: {fileID: 6466354953329116307, guid: d9ecfbcb80927c04d916d06530d5876b, type: 3}
       propertyPath: door
       value: 

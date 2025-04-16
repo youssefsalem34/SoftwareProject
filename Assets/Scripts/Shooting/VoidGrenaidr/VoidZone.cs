@@ -16,7 +16,7 @@ public class VoidZone : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         time = Time.deltaTime;
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyDanger"))
         {
             // Apply damage to the enemy
             AttributeManager enemy = other.GetComponent<AttributeManager>();
