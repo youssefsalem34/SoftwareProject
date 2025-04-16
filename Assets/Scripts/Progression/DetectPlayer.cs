@@ -34,6 +34,11 @@ public class DetectPlayer : MonoBehaviour
                 //Killing enemies after room is finished
                 Destroy(hitCollider.gameObject);
             }
+            else if (hitCollider.gameObject.CompareTag("EnemyDanger") && roomDone) //|| hitCollider.gameObject.CompareTag("Enemy2")
+            {
+                //Killing enemies after room is finished
+                Destroy(hitCollider.gameObject);
+            }
 
         }
     }

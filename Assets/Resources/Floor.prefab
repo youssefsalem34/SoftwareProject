@@ -2884,6 +2884,7 @@ GameObject:
   - component: {fileID: 5522234619159964773}
   - component: {fileID: 4644370463650664660}
   - component: {fileID: 8029663731840099157}
+  - component: {fileID: 3739448968676079297}
   m_Layer: 3
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -2970,6 +2971,20 @@ MonoBehaviour:
   enemy1: {fileID: 0}
   index: 0
   enemiesPerSecond: 2.5
+--- !u!114 &3739448968676079297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029307062266673073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3571036c6f285e4792f7b46405a686a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDangerEnemies: {fileID: 8029663731840099157}
+  firstObj: {fileID: 1344400567024820273}
 --- !u!1001 &209000917027967931
 PrefabInstance:
   m_ObjectHideFlags: 0

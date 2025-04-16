@@ -942,7 +942,7 @@ MonoBehaviour:
   objective3: {fileID: 5985301009961060825}
   objective: {fileID: 0}
   objectsToPickFrom:
-  - {fileID: 4402861178565853545}
+  - {fileID: 4277603028261867071}
 --- !u!54 &3601188946424340912
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2132,6 +2132,7 @@ GameObject:
   - component: {fileID: 8249842550547173094}
   - component: {fileID: 3704423650117514885}
   - component: {fileID: 6689094242813168269}
+  - component: {fileID: 598802607414229065}
   m_Layer: 3
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -2218,6 +2219,20 @@ MonoBehaviour:
   enemy1: {fileID: 0}
   index: 0
   enemiesPerSecond: 2.5
+--- !u!114 &598802607414229065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7505710592061833137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3571036c6f285e4792f7b46405a686a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDangerEnemies: {fileID: 6689094242813168269}
+  firstObj: {fileID: 4402861178565853545}
 --- !u!1 &7922785603794819372
 GameObject:
   m_ObjectHideFlags: 0

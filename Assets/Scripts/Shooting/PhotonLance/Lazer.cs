@@ -113,7 +113,7 @@ public class Lazer : MonoBehaviour
         if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
         {
             
-            if (hit.transform.CompareTag("Enemy"))
+            if (hit.transform.CompareTag("Enemy") || hit.transform.CompareTag("EnemyDanger"))
             {
                 Debug.Log($"Hit {hit.transform.name} with {currentDamage} damage");
 

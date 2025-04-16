@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6812286915504156077}
   - component: {fileID: 6466354953329116307}
   - component: {fileID: 1406671645519481250}
-  - component: {fileID: 5023518485856304722}
   m_Layer: 0
   m_Name: FirstObjective
   m_TagString: FirstObjective
@@ -74,17 +73,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5023518485856304722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7412550407243351408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3571036c6f285e4792f7b46405a686a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnDangerEnemies: {fileID: 0}
-  firstObj: {fileID: 0}
