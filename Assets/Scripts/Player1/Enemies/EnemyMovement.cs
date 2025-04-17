@@ -28,21 +28,21 @@ public class EnemyMovement : MonoBehaviour
 
         if (nav == null)
         {
-            Debug.LogError("NavMeshAgent component is missing on " + gameObject.name);
+            Debug.Log("NavMeshAgent component is missing on " + gameObject.name);
             enabled = false;
             return;
         }
 
         if (enemyHealth == null)
         {
-            Debug.LogError("AttributeManager component is missing on " + gameObject.name);
+            Debug.Log("AttributeManager component is missing on " + gameObject.name);
             enabled = false;
             return;
         }
 
         if (animator == null)
         {
-            Debug.LogError("Animator component is missing on " + gameObject.name);
+            Debug.Log("Animator component is missing on " + gameObject.name);
             enabled = false;
             return;
         }
@@ -100,7 +100,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (playerPosition == null)
         {
-            Debug.LogWarning("Player not found within detection radius.");
+            Debug.Log("Player not found within detection radius.");
         }
     }
 

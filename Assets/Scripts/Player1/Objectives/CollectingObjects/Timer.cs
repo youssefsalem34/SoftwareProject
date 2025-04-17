@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
         if (timerDone)
         {
             deathScript.playerDead = true;
-            time = resetTimer;
+            
             timerDone = false;
         }
     }
@@ -62,5 +62,11 @@ public class Timer : MonoBehaviour
         int minutes = Mathf.FloorToInt(time / 60); // Calculate minutes
         int seconds = Mathf.FloorToInt(time % 60); // Calculate seconds
         timerDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds); // Display in "MM:SS" format
+    }
+
+
+    public void ResetTime()
+    {
+        time = resetTimer;
     }
 }

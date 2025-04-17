@@ -19,6 +19,8 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private AttributeManager playerHealth;
     [SerializeField] private AudioSource playerDeath;
     [SerializeField] private GameObject playerDeathUI;
+
+    [SerializeField] private Timer timerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -129,6 +131,7 @@ public class PlayerDeath : MonoBehaviour
                 CollectionCounter keyCounter = resetKeys.gameObject.GetComponent<CollectionCounter>();
                 keyReset.keysSpawned = 0;
                 keyCounter.keyCounter = 0;
+                timerScript.ResetTime();
 
                 resetAmmo.AddAmmo(25);
                 resetAmmo.AddRockets(2);

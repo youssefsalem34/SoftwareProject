@@ -2502,6 +2502,7 @@ MonoBehaviour:
   playerHealth: {fileID: 4330742448884182275}
   playerDeath: {fileID: 3923784268303213273}
   playerDeathUI: {fileID: 4279628404571423261}
+  timerScript: {fileID: 7200591278051431710}
 --- !u!114 &-3602785174194624769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21914,8 +21915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScript: {fileID: 485774258206179437}
-  time: 30
-  resetTimer: 30
+  time: 31
+  resetTimer: 31
   timerDisplay: {fileID: 675482147244762168}
   secondObj: {fileID: 4357673227861101667}
   timerDone: 0
