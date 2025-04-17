@@ -453,6 +453,8 @@ MonoBehaviour:
   objective3: {fileID: 1022878472885458702}
   objective: {fileID: 0}
   objectsToPickFrom:
+  - {fileID: 1344400567024820273}
+  - {fileID: 7807764120585251253}
   - {fileID: 1022878472885458702}
 --- !u!54 &2908381897106547421
 Rigidbody:
