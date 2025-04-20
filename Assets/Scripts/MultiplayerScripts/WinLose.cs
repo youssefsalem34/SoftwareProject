@@ -1,4 +1,6 @@
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WinLose : MonoBehaviour
@@ -12,10 +14,12 @@ public class WinLose : MonoBehaviour
     [SerializeField] public GameObject loseUI;
     [SerializeField] private GameObject otherTeam;
     [SerializeField] private WinLose winLoseScript;
+    [SerializeField] private GameObject combinedUI;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         winLoseScript = otherTeam.GetComponent<WinLose>();
+        
     }
 
     // Update is called once per frame
@@ -23,6 +27,7 @@ public class WinLose : MonoBehaviour
     {
         if (player != null)
         {
+           
 
             GameObject mainUI = player.transform.GetChild(5).gameObject;
 
@@ -48,11 +53,18 @@ public class WinLose : MonoBehaviour
         if (victory)
         {
             winUI.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            combinedUI.SetActive(false);
         }
         else if (defeat)
         {
             loseUI.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            combinedUI.SetActive(false);
         }
+     
 
     }
 
@@ -70,4 +82,8 @@ public class WinLose : MonoBehaviour
            
         }
     }
+
+
+
+  
 }
