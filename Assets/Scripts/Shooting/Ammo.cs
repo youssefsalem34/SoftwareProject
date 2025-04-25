@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
-public class Ammo : MonoBehaviour
+using Unity.Netcode;
+
+public class Ammo : NetworkBehaviour
 {
     [SerializeField] private int weapon1;
     [SerializeField] private int weapon2;
@@ -21,6 +23,9 @@ public class Ammo : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+    
+
+       
         if (weapon1Object != null)
         {
             weapon1UI = weapon1Object.GetComponent<TMP_Text>();
@@ -30,15 +35,16 @@ public class Ammo : MonoBehaviour
             weapon2UI = weapon2Object.GetComponent<TMP_Text>();
         }
 
-        if(weapon3Object != null)
+        if (weapon3Object != null)
         {
             weapon3UI = weapon3Object.GetComponent<TMP_Text>();
         }
 
-        if(weapon4Object != null)
+        if (weapon4Object != null)
         {
             weapon4UI = weapon4Object.GetComponent<TMP_Text>();
         }
+
     }
 
     // Update is called once per frame
@@ -49,6 +55,7 @@ public class Ammo : MonoBehaviour
       weapon2UI.SetText(weapon2.ToString());
       weapon3UI.SetText(weapon3.ToString());
       weapon4UI.SetText(weapon4.ToString());
+       
     }
 
 

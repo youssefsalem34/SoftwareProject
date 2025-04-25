@@ -1,6 +1,9 @@
+using System.Globalization;
+using Unity.Netcode;
 using UnityEngine;
+using Unity.Netcode;
 
-public class SwitchBetweenWeapons : MonoBehaviour
+public class SwitchBetweenWeapons : NetworkBehaviour
 {
     [SerializeField] private GameObject weapon1;
     [SerializeField] private GameObject weapon2;
@@ -45,43 +48,53 @@ public class SwitchBetweenWeapons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(upgradeTime == true)
+
+        if (!IsOwner)
         {
+            return;
+        }
 
-            //wep1UI.SetActive(true);
-            //wep2UI.SetActive(true);
-            //wep3UI.SetActive(true);
-            CheckWeaponUnlocks();
+        if (IsLocalPlayer)
+        {
+            if (upgradeTime == true)
+            {
 
-            if (Input.GetKeyDown(KeyCode.Alpha1) && !wep1Unlocked)
-            {
-                wep1UI.SetActive(false);
-                wep2UI.SetActive(false);
-                wep3UI.SetActive(false);
-               // wep4UI.SetActive(false);
-                wep1Unlocked = true;
-                upgradeTime = false;
+                //wep1UI.SetActive(true);
+                //wep2UI.SetActive(true);
+                //wep3UI.SetActive(true);
+                CheckWeaponUnlocks();
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && !wep2Unlocked)
-            {
-                wep1UI.SetActive(false);
-                wep2UI.SetActive(false);
-                wep3UI.SetActive(false);
-               // wep4UI.SetActive(false);
-                wep2Unlocked = true;
-                upgradeTime = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && !wep3Unlocked)
-            {
-                wep1UI.SetActive(false);
-                wep2UI.SetActive(false);
-                wep3UI.SetActive(false);
-               // wep4UI.SetActive(false);
-                wep3Unlocked = true;
-                upgradeTime = false;
+                if (Input.GetKeyDown(KeyCode.Alpha1) && !wep1Unlocked)
+                {
+                    wep1UI.SetActive(false);
+                    wep2UI.SetActive(false);
+                    wep3UI.SetActive(false);
+                    // wep4UI.SetActive(false);
+                    wep1Unlocked = true;
+                    upgradeTime = false;
+
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2) && !wep2Unlocked)
+                {
+                    wep1UI.SetActive(false);
+                    wep2UI.SetActive(false);
+                    wep3UI.SetActive(false);
+                    // wep4UI.SetActive(false);
+                    wep2Unlocked = true;
+                    upgradeTime = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3) && !wep3Unlocked)
+                {
+                    wep1UI.SetActive(false);
+                    wep2UI.SetActive(false);
+                    wep3UI.SetActive(false);
+                    // wep4UI.SetActive(false);
+                    wep3Unlocked = true;
+                    upgradeTime = false;
+                }
             }
         }
+    
 
         if (wep1Unlocked)
         {
