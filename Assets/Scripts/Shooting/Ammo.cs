@@ -1,8 +1,7 @@
 using UnityEngine;
 using TMPro;
-using Unity.Netcode;
 
-public class Ammo : NetworkBehaviour
+public class Ammo : MonoBehaviour
 {
     [SerializeField] private int weapon1;
     [SerializeField] private int weapon2;

@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic; 
-
+using System.Collections.Generic;
 public class StartRoom : MonoBehaviour
 {
     public GameObject backDoor;
@@ -36,14 +35,17 @@ public class StartRoom : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag("Player"))
-        {
-            closeBool.isClose = true;
-            objective.SetActive(true);
-            SwitchBetweenWeapons switchScript = col.gameObject.GetComponent<SwitchBetweenWeapons>();
-            switchScript.upgradeTime = true;
-            this.gameObject.SetActive(false);
+     
+            if (col.CompareTag("Player"))
+            {
+                closeBool.isClose = true;
+                objective.SetActive(true);
+                SwitchBetweenWeapons switchScript = col.gameObject.GetComponent<SwitchBetweenWeapons>();
+                switchScript.upgradeTime = true;
+                this.gameObject.SetActive(false);
 
-        }
+            }
+        
+       
     }
 }

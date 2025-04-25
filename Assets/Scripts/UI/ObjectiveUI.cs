@@ -1,7 +1,9 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-public class ObjectiveUI : MonoBehaviour
+
+public class ObjectiveUI : NetworkBehaviour
 {
     [SerializeField] private GameObject firstObjText;
     [SerializeField] private GameObject secondObjText;
@@ -36,26 +38,35 @@ public class ObjectiveUI : MonoBehaviour
         thirdObjText.SetActive(false);
         foreach (Collider hitCollider in hitColliders)
         {
-            // Debug.Log(hitCollider);
-            if (hitCollider.gameObject.CompareTag("FirstObjective"))
+            if (!IsOwner)
             {
-                firstObjText.SetActive(true);
-                EliminateEnemies enemyScript = hitCollider.gameObject.GetComponent<EliminateEnemies>();
-                enemyCounterUI.text = enemyScript.numberOfEnemiesKilled.ToString();
-                break; // Only show the first detected objective UI
+                return;
             }
-            else if (hitCollider.gameObject.CompareTag("SecondObjective"))
+
+            if (IsLocalPlayer)
             {
-                secondObjText.SetActive(true);
-                CollectionCounter keyScript = hitCollider.gameObject.GetComponent<CollectionCounter>();
-                keyCounterUI.text = keyScript.keyCounter.ToString();
-                break;
+                // Debug.Log(hitCollider);
+                if (hitCollider.gameObject.CompareTag("FirstObjective"))
+                {
+                    firstObjText.SetActive(true);
+                    EliminateEnemies enemyScript = hitCollider.gameObject.GetComponent<EliminateEnemies>();
+                    enemyCounterUI.text = enemyScript.numberOfEnemiesKilled.ToString();
+                    break; // Only show the first detected objective UI
+                }
+                else if (hitCollider.gameObject.CompareTag("SecondObjective"))
+                {
+                    secondObjText.SetActive(true);
+                    CollectionCounter keyScript = hitCollider.gameObject.GetComponent<CollectionCounter>();
+                    keyCounterUI.text = keyScript.keyCounter.ToString();
+                    break;
+                }
+                else if (hitCollider.gameObject.CompareTag("ThirdObjective"))
+                {
+                    thirdObjText.SetActive(true);
+                    break;
+                }
             }
-            else if (hitCollider.gameObject.CompareTag("ThirdObjective"))
-            {
-                thirdObjText.SetActive(true);
-                break;
-            }
+           
         }
     }
 

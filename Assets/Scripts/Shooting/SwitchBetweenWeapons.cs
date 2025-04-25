@@ -1,7 +1,7 @@
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
-using Unity.Netcode;
+
 
 public class SwitchBetweenWeapons : NetworkBehaviour
 {
