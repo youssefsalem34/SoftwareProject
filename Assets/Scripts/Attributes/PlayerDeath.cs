@@ -1,8 +1,9 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerDeath : MonoBehaviour
+public class PlayerDeath : NetworkBehaviour
 {
 
     public float radius;  // Radius of the sphere
@@ -36,8 +37,16 @@ public class PlayerDeath : MonoBehaviour
             playerHealth.resetHealth = true;
             //playerHealth.IncreaseHealth(playerHealth.CheckHealth());
         }
+        if (!IsOwner)
+        {
+            return;
+        }
 
-        CheckPlayerDeath();
+        if (IsLocalPlayer)
+        {
+            CheckPlayerDeath();
+        }
+            
     }
 
     void CheckPlayerDeath()
