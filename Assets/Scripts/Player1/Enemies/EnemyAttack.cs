@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : NetworkBehaviour
 {
 
     [SerializeField] private float radius;
@@ -39,7 +40,18 @@ public class EnemyAttack : MonoBehaviour
         }
         if (player != null)
         {
-          
+            NetworkObject playerNetworkObject = player.GetComponent<NetworkObject>();
+
+            if (playerNetworkObject == null || !playerNetworkObject.IsOwner)
+            {
+                return;
+            }
+
+            if ( playerNetworkObject.IsLocalPlayer)
+            {
+                Debug.Log("Owner Confirmed");
+            }
+
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (this.gameObject.CompareTag("Enemy"))
             {
@@ -71,7 +83,10 @@ public class EnemyAttack : MonoBehaviour
         {
             if (playerHealth != null )
             {
-                playerHealth.ReduceHealth(attackDamage);
+               
+
+                    playerHealth.ReduceHealth(attackDamage);
+                
             }
             yield return new WaitForSeconds(attackCooldown);
         }
@@ -94,7 +109,11 @@ public class EnemyAttack : MonoBehaviour
             // Do something with each hit object
             if (hitCollider.gameObject.CompareTag("Player"))
             {
-               player = hitCollider.gameObject;
+               
+                    player = hitCollider.gameObject;
+
+                
+                       
             }
             
 
