@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyCounter: 0
-  requiredKeys: 1
+  requiredKeys: 5
   frontDoor: {fileID: 0}
   frontDoorScript: {fileID: 0}
   floor: {fileID: 0}
