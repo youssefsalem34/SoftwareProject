@@ -13,8 +13,9 @@ public class TestRelay : MonoBehaviour
     [SerializeField] private string joinCode;
     [SerializeField] private TextMeshProUGUI codeObject;
     [SerializeField] private GameObject lobby;
+    [SerializeField] private TMP_InputField joinCodeInput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-   async void Start()
+    async void Start()
     {
         await UnityServices.InitializeAsync();
 
@@ -61,5 +62,11 @@ public class TestRelay : MonoBehaviour
         {
             Debug.Log(e);
         }
+    }
+
+    public void JoinRelayFromInput()
+    {
+        string inputCode = joinCodeInput.text.Trim();
+        JoinRelay(inputCode);
     }
 }

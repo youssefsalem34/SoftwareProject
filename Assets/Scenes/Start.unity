@@ -239,6 +239,7 @@ MonoBehaviour:
   joinCode: 
   codeObject: {fileID: 631464216}
   lobby: {fileID: 836892519}
+  joinCodeInput: {fileID: 851495731}
 --- !u!1 &126647675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3729,8 +3730,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 121620614}
         m_TargetAssemblyTypeName: TestRelay, Assembly-CSharp
-        m_MethodName: JoinRelay
-        m_Mode: 5
+        m_MethodName: JoinRelayFromInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
