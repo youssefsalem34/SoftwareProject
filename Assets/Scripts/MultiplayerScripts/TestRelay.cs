@@ -8,6 +8,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class TestRelay : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class TestRelay : MonoBehaviour
     [SerializeField] private string joinCode;
     [SerializeField] private TextMeshProUGUI codeObject;
     [SerializeField] private GameObject lobby;
+    [SerializeField] private GameObject lobbyClient;
     [SerializeField] private TMP_InputField joinCodeInput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
@@ -50,7 +52,7 @@ public class TestRelay : MonoBehaviour
                 allocation.Key,
                 allocation.ConnectionData);
 
-            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
 
             NetworkManager.Singleton.StartHost();
@@ -85,7 +87,7 @@ public class TestRelay : MonoBehaviour
                 joinAllocation.ConnectionData,
                 joinAllocation.HostConnectionData);
 
-            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
 
             NetworkManager.Singleton.StartClient();
@@ -115,5 +117,26 @@ public class TestRelay : MonoBehaviour
        
         response.Position = Vector3.zero;
         response.Rotation = Quaternion.identity;
+    }
+
+
+    public void StopHost()
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
+            Debug.Log("Host stopped.");
+            lobby.SetActive(false);
+        }
+    }
+
+    public void LoadGame()
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+
+
+        }
     }
 }

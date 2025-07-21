@@ -1,3 +1,5 @@
+using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class TPplayer : MonoBehaviour
@@ -6,7 +8,9 @@ public class TPplayer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ulong hostClientId = NetworkManager.Singleton.LocalClientId;
+        GameObject player = Instantiate(NetworkManager.Singleton.NetworkConfig.PlayerPrefab,this.transform.position, Quaternion.identity);
+        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(hostClientId); // Set owner
     }
 
     // Update is called once per frame
