@@ -35,9 +35,17 @@ public class TestRelay : NetworkBehaviour
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+
+
     }
 
-   
+    async void Update()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
+    }
 
     // Update is called once per frame
     public async void CreateRelay()
@@ -99,7 +107,7 @@ public class TestRelay : NetworkBehaviour
             NetworkManager.Singleton.StartClient();
             lobbyClient.SetActive(true);
             codeObjectClient.text = joinCode;
-            LockGame();
+          
 
         }
         catch (RelayServiceException e) 
@@ -189,5 +197,36 @@ public class TestRelay : NetworkBehaviour
         isPrivate = false;
         Debug.Log("Game is now Public.");
     }
+
+
+
+    private void OnClientConnected(ulong clientId)
+    {
+        // Don't count the host (clientId 0 is usually the host)
+        if (clientId != NetworkManager.Singleton.LocalClientId)
+        {
+            Debug.Log($"Client {clientId} connected. Locking the game.");
+            LockGame();
+
+            // Optionally unsubscribe to avoid locking again
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        }
+    }
+
+    private void OnClientDisconnected(ulong clientId)
+    {
+        int clientCount = NetworkManager.Singleton.ConnectedClientsList.Count;
+
+        // Exclude host from the count (host is usually clientId 0)
+        if (clientCount <= 1) // Only host remains
+        {
+            Debug.Log("All clients disconnected. Unlocking the game.");
+            UnlockGame();
+
+            // Optional: Resubscribe to allow more clients to join
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        }
+    }
+
 
 }
