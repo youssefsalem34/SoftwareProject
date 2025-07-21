@@ -5,6 +5,9 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using TMPro;
 using Unity.Services.Lobbies.Models;
+using Unity.Networking.Transport.Relay;
+using Unity.Netcode.Transports.UTP;
+using Unity.Netcode;
 
 public class TestRelay : MonoBehaviour
 {
@@ -38,6 +41,21 @@ public class TestRelay : MonoBehaviour
 
            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
+          //  RelayServerData relayServerData = new RelayServerData();
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
+                allocation.RelayServer.IpV4,
+                (ushort)allocation.RelayServer.Port,
+                allocation.AllocationIdBytes,
+                allocation.Key,
+                allocation.ConnectionData);
+
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
+
+            NetworkManager.Singleton.StartHost();
+
+         
             Debug.Log(joinCode);
             lobby.SetActive(true);
             codeObject.text = joinCode;
@@ -55,7 +73,22 @@ public class TestRelay : MonoBehaviour
         try
         {
             Debug.Log("Joining relay with " + joinCode);
-            await RelayService.Instance.JoinAllocationAsync(joinCode);
+           JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            // RelayServerData relayServerData = new RelayServerData();
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
+                joinAllocation.RelayServer.IpV4,
+                (ushort)joinAllocation.RelayServer.Port,
+                joinAllocation.AllocationIdBytes,
+                joinAllocation.Key,
+                joinAllocation.ConnectionData,
+                joinAllocation.HostConnectionData);
+
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+            NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
+
+            NetworkManager.Singleton.StartClient();
 
         }
         catch (RelayServiceException e) 
@@ -68,5 +101,19 @@ public class TestRelay : MonoBehaviour
     {
         string inputCode = joinCodeInput.text.Trim();
         JoinRelay(inputCode);
+    }
+
+
+    private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    {
+       
+        response.CreatePlayerObject = false;
+
+       
+        response.Approved = true;
+
+       
+        response.Position = Vector3.zero;
+        response.Rotation = Quaternion.identity;
     }
 }
