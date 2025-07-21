@@ -10,15 +10,20 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class TestRelay : MonoBehaviour
+public class TestRelay : NetworkBehaviour
 {
 
 
     [SerializeField] private string joinCode;
     [SerializeField] private TextMeshProUGUI codeObject;
+    [SerializeField] private TextMeshProUGUI codeObjectClient;
     [SerializeField] private GameObject lobby;
     [SerializeField] private GameObject lobbyClient;
     [SerializeField] private TMP_InputField joinCodeInput;
+
+    private bool isPrivate = false;
+
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -61,6 +66,7 @@ public class TestRelay : MonoBehaviour
             Debug.Log(joinCode);
             lobby.SetActive(true);
             codeObject.text = joinCode;
+            UnlockGame();
 
         }
         catch (RelayServiceException e)
@@ -70,7 +76,7 @@ public class TestRelay : MonoBehaviour
     }
 
 
-   public async void JoinRelay(string joinCode)
+   private async void JoinRelay(string joinCode)
     {
         try
         {
@@ -91,6 +97,9 @@ public class TestRelay : MonoBehaviour
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
 
             NetworkManager.Singleton.StartClient();
+            lobbyClient.SetActive(true);
+            codeObjectClient.text = joinCode;
+            LockGame();
 
         }
         catch (RelayServiceException e) 
@@ -108,13 +117,24 @@ public class TestRelay : MonoBehaviour
 
     private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
-       
+
+        //response.CreatePlayerObject = false;
+
+
+        //response.Approved = true;
+
+
+        //response.Position = Vector3.zero;
+        //response.Rotation = Quaternion.identity;
+        if (isPrivate)
+        {
+            Debug.Log("Connection rejected: game is private.");
+            response.Approved = false;
+            return;
+        }
+
         response.CreatePlayerObject = false;
-
-       
         response.Approved = true;
-
-       
         response.Position = Vector3.zero;
         response.Rotation = Quaternion.identity;
     }
@@ -127,6 +147,7 @@ public class TestRelay : MonoBehaviour
             NetworkManager.Singleton.Shutdown();
             Debug.Log("Host stopped.");
             lobby.SetActive(false);
+            UnlockGame();
         }
     }
 
@@ -139,4 +160,34 @@ public class TestRelay : MonoBehaviour
 
         }
     }
+
+
+    public void LeaveClient()
+    {
+        if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
+        {
+            LockGame();
+            NetworkManager.Singleton.Shutdown();
+
+            lobbyClient.SetActive(false);
+
+
+            
+        }
+    }
+
+
+   
+    public void LockGame()
+    {
+        isPrivate = true;
+        Debug.Log("Game is now private. No new players can join.");
+    }
+
+    public void UnlockGame()
+    {
+        isPrivate = false;
+        Debug.Log("Game is now Public.");
+    }
+
 }
