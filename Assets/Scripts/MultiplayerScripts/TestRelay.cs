@@ -23,6 +23,7 @@ public class TestRelay : NetworkBehaviour
     [SerializeField] private GameObject clientNameScreen;
     [SerializeField] private GameObject players;
     [SerializeField] private GameObject nameRequired;
+    [SerializeField] private GameObject playerMax;
     [SerializeField] private TMP_InputField joinCodeInput;
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_InputField clientNameInput;
@@ -280,6 +281,7 @@ public class TestRelay : NetworkBehaviour
             if (connectedClients > 2)
             {
                 Debug.Log("Too many clients");
+                playerMax.SetActive(true);
                 return;
             }
             
