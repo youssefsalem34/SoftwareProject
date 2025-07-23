@@ -33,7 +33,11 @@ public class TestRelay : NetworkBehaviour
 
    [SerializeField] private bool isPrivate = false;
 
-   
+
+   // public NetworkVariable<string> HostPlayerName = new NetworkVariable<string>(string.Empty, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -46,19 +50,41 @@ public class TestRelay : NetworkBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
+       // HostPlayerName.OnValueChanged += OnHostPlayerNameChanged;
 
+    }
 
+    private void OnHostPlayerNameChanged(string oldName, string newName)
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            playerName.text = newName; // Host updates their own UI
+        }
+        else
+        {
+            playerName.text = newName; // Client shows host's name in host name UI
+        }
     }
 
     //async void Update()
     //{
-    //    playerName.text = nameInput.text.Trim();
-    //    clientName.text = clientNameInput.text.Trim();
+    //    //playerName.text = nameInput.text.Trim();
+    //    //clientName.text = clientNameInput.text.Trim();
 
+    //    int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
+
+    //    if (connectedClients >= 1)
+    //    {
+    //        LockGame();
+    //    }
+    //    else if (connectedClients < 1) 
+    //    {
+    //        UnlockGame();
+    //    }
 
     //}
 
-    // Update is called once per frame
+
     public async void CreateRelay()
     {
 
@@ -74,6 +100,9 @@ public class TestRelay : NetworkBehaviour
             nameRequired.SetActive(false);
 
         }
+       
+
+
         try
         {
            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
@@ -100,8 +129,8 @@ public class TestRelay : NetworkBehaviour
 
             playerName.text = nameInput.text.Trim();
 
-            SendPlayerNameServerRpc(nameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
-            PlayerPrefs.SetString("PlayerName", nameInput.text); // For host
+            //SendPlayerNameServerRpc(nameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
+            //PlayerPrefs.SetString("PlayerName", nameInput.text); // For host
 
 
             // PlayerPrefs.SetString("PlayerName", nameInput.text); // For host
@@ -110,7 +139,7 @@ public class TestRelay : NetworkBehaviour
             lobby.SetActive(true);
             players.SetActive(true);
             codeObject.text = joinCode;
-            UnlockGame();
+           // UnlockGame();
 
         }
         catch (RelayServiceException e)
@@ -126,6 +155,7 @@ public class TestRelay : NetworkBehaviour
     {
         try
         {
+           
             Debug.Log("Joining relay with " + joinCode);
            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
@@ -139,10 +169,12 @@ public class TestRelay : NetworkBehaviour
                 joinAllocation.ConnectionData,
                 joinAllocation.HostConnectionData);
 
-            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+            
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
 
+            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
             NetworkManager.Singleton.StartClient();
+         
 
 
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
@@ -152,8 +184,8 @@ public class TestRelay : NetworkBehaviour
 
             clientName.text = clientNameInput.text.Trim();
 
-            SendPlayerNameServerRpc(clientNameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
-            PlayerPrefs.SetString("PlayerName", clientNameInput.text); // For client
+            //SendPlayerNameServerRpc(clientNameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
+            //PlayerPrefs.SetString("PlayerName", clientNameInput.text); // For client
 
             
 
@@ -187,6 +219,7 @@ public class TestRelay : NetworkBehaviour
             nameRequired.SetActive(false);
 
         }
+      
 
         string inputCode = joinCodeInput.text.Trim();
  
@@ -207,15 +240,16 @@ public class TestRelay : NetworkBehaviour
 
         //response.Position = Vector3.zero;
         //response.Rotation = Quaternion.identity;
-        int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
+      //  int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
 
         // Only allow 1 client to connect (host is already running)
-        if (connectedClients > 1 || isPrivate)
-        {
-            Debug.Log("Connection rejected: max clients reached or lobby is private.");
-            response.Approved = false;
-            return;
-        }
+      //  if (connectedClients >= 1 || isPrivate)
+      //  {
+         //   Debug.Log("Connection rejected: max clients reached or lobby is private.");
+         //   response.Approved = false;
+           // lobbyClient.SetActive(false);
+        //    return;
+       // }
 
         response.CreatePlayerObject = false;
         response.Approved = true;
@@ -232,7 +266,7 @@ public class TestRelay : NetworkBehaviour
             Debug.Log("Host stopped.");
             lobby.SetActive(false);
             players.SetActive(false);
-            UnlockGame();
+           // UnlockGame();
         }
     }
 
@@ -240,6 +274,15 @@ public class TestRelay : NetworkBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
+
+            int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
+
+            if (connectedClients > 2)
+            {
+                Debug.Log("Too many clients");
+                return;
+            }
+            
             NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
 
 
@@ -251,7 +294,7 @@ public class TestRelay : NetworkBehaviour
     {
         if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
         {
-            LockGame();
+           // UnlockGame();
             NetworkManager.Singleton.Shutdown();
 
             lobbyClient.SetActive(false);
