@@ -69,8 +69,9 @@ public class TestRelay : NetworkBehaviour
 
     //async void Update()
     //{
+    //    await UnityServices.InitializeAsync();
     //    //playerName.text = nameInput.text.Trim();
-    //    //clientName.text = clientNameInput.text.Trim();
+       
 
     //    int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
 
@@ -78,7 +79,7 @@ public class TestRelay : NetworkBehaviour
     //    {
     //        LockGame();
     //    }
-    //    else if (connectedClients < 1) 
+    //    else if (connectedClients < 1)
     //    {
     //        UnlockGame();
     //    }
@@ -185,8 +186,8 @@ public class TestRelay : NetworkBehaviour
 
             clientName.text = clientNameInput.text.Trim();
 
-            //SendPlayerNameServerRpc(clientNameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
-            //PlayerPrefs.SetString("PlayerName", clientNameInput.text); // For client
+            SendPlayerNameServerRpc(clientNameInput.text.Trim(), NetworkManager.Singleton.LocalClientId);
+            PlayerPrefs.SetString("PlayerName", clientNameInput.text); // For client
 
             
 
@@ -322,17 +323,18 @@ public class TestRelay : NetworkBehaviour
 
 
 
-    private void OnClientConnected(ulong clientId)
+    void OnClientConnected(ulong clientId)
     {
-        // Don't count the host (clientId 0 is usually the host)
-        if (clientId != NetworkManager.Singleton.LocalClientId)
-        {
-            Debug.Log($"Client {clientId} connected. Locking the game.");
-            LockGame();
+        Debug.Log($"Client {clientId} connected.");
 
-            // Optionally unsubscribe to avoid locking again
-            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        // Only do this if we're the client and it's our own connection
+        if (clientId == NetworkManager.Singleton.LocalClientId && !NetworkManager.Singleton.IsHost)
+        {
+            SendPlayerNameServerRpc(clientNameInput.text.Trim(), clientId);
+            Debug.Log("Sent client name to server: " + clientNameInput.text.Trim());
         }
+
+        LockGame(); // Optional, depending on your design
     }
 
     private void OnClientDisconnected(ulong clientId)
